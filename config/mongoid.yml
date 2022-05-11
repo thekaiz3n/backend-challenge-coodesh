@@ -1,0 +1,17 @@
+development:
+  clients:
+    default:
+      uri: <%= ENV['mongodb_uri'] %>
+      options:
+        server_selection_timeout: 1
+  options:
+test:
+  clients:
+    default:
+      database: backend_challenge_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1

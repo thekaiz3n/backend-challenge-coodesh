@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  date: 2022-05-10
+  variant: MyString
+  num_sequences: 1
+  perc_sequences: 1.5
+  num_sequences_total: 1
+
+two:
+  location: MyString
+  date: 2022-05-10
+  variant: MyString
+  num_sequences: 1
+  perc_sequences: 1.5
+  num_sequences_total: 1
