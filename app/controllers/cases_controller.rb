@@ -3,18 +3,19 @@ require 'date'
 class CasesController < ApplicationController
   before_action :set_case, only: %i[ show update destroy ]
 
-  # GET /cases
   def index
-
-    render json: "Backend Challenge - Covid Daily Cases"
+    render json: { challenge: 'Backend Challenge - Covid Daily Cases' }, status: 200
   end
 
-  # GET /cases/1
   def get_count
+   if params[:getdate] =~ /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
     @cases = Case.get_by_date(params[:getdate])
     @sort_by = @cases.group_by { |c| c["location"] }
     # @sort_by_country.sort_by { |k, _| k["variant"] }
     render json: @sort_by
+   else
+    render json: { invalid: 'Date format expected is: yyyy-mm-dd' }, status: 200 
+   end
   end
 
   def get_dates 
@@ -22,47 +23,18 @@ class CasesController < ApplicationController
   end
 
   def get_cumulative
-    @cases = Case.get_by_date(params[:getdate])
-    @cumulative = @cases.count
-    @sort_by = @cases.group_by { |c| c["location"] }
-    @hash_with_cumulative = {cumulative: @cumulative}.merge(@sort_by)
-    render json: @hash_with_cumulative
-  end
-
-
-  # POST /cases
-  def create
-    @case = Case.new(case_params)
-
-    if @case.save
-      render json: @case, status: :created, location: @case
+    if params[:getdate] =~ /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
+      @cases = Case.get_by_date(params[:getdate])
+      @cumulative = @cases.count
+      @sort_by = @cases.group_by { |c| c["location"] }
+      @hash_with_cumulative = {cumulative: @cumulative}.merge(@sort_by)
+      render json: @hash_with_cumulative
     else
-      render json: @case.errors, status: :unprocessable_entity
+      render json: { invalid: 'Date format expected is: yyyy-mm-dd' }, status: 200 
     end
   end
 
-  # PATCH/PUT /cases/1
-  def update
-    if @case.update(case_params)
-      render json: @case
-    else
-      render json: @case.errors, status: :unprocessable_entity
-    end
+  def not_found
+    render json: { invalid: 'Invalid request' }, status: 404
   end
-
-  # DELETE /cases/1
-  def destroy
-    @case.destroy
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_case
-      @case = Case.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def case_params
-      params.require(:case).permit(:location, :date, :variant, :num_sequences, :perc_sequences, :num_sequences_total)
-    end
 end

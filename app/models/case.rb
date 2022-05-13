@@ -8,6 +8,9 @@ class Case
   field :perc_sequences, type: Float
   field :num_sequences_total, type: Integer
 
+  validates :date, presence: true, allow_blank: false,format: {with: /[a-zA-Z]/}
+
+
   def self.get_by_date(date)
     Case.where(date: date)
   end

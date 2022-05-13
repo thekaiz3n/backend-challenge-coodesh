@@ -1,25 +1,29 @@
-# README
+# Backend Challenge  2022 - Covid Daily cases
+> This is a challenge by Coodesh   
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project provide a API that return data referent a covid cases in several countrys.
 
-Things you may want to cover:
+This is the data available:
 
-* Ruby version
+- **[GET] /** : Return a status 200. With the message: Backend Challenge  2022 - Covid Daily cases
+- **[GET] /cases/:date/count** : Return a list of all cases based in the selected day, grouped by country and separated by variant. 
+- **[GET] /cases/:date/cumulative** : Return a list of all cases based in the selected day, returning the sum of cases in the selected day, grouped by country and separated by variant. 
+- **[GET] /:date** : Return all dates in the database.
 
-* System dependencies
+## Database
+The data used is found in this link: https://challenges.coode.sh/covid/data/covid-variants.csv
 
-* Configuration
+## Technologies
+- ruby v.3.1.1
+- rails v.7.0.3
+- MongoDB Atlas
 
-* Database creation
+## Instructions
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* set tup credentials
-Execute this command: EDITOR="vim " rails credentials:edit
+### Docker
+This project use the MongoDB Atlas.
+```bash
+docker run -p 3001:3000 -e "MONGODB_URI=mongodb+srv://<username>:<password>@<yourcluster>.mongodb.net/covidcases?retryWrites=true&w=majority" rails_app .
+```
+### Local
+To run local, is necessary edit the file **config/mongoid.yml** and add the local database.
