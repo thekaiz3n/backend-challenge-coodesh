@@ -20,11 +20,14 @@ Bundler.require(*Rails.groups)
 
 Mongoid.load!(File.expand_path('mongoid.yml', './config'))
 
+
 module BackendChallenge
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.api_only = true
+    config.eager_load = true
+
   end
 end
 
