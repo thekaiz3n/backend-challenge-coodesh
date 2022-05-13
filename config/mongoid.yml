@@ -4,7 +4,6 @@ development:
       uri: <%= ENV['MONGODB_URI'] %>
       options:
         server_selection_timeout: 1
-  options:
 test:
   clients:
     default:
@@ -13,3 +12,9 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+production:
+  clients:
+    default:
+      uri: <%= ENV['MONGODB_URI'] %>
+      options:
+        server_selection_timeout: 1
