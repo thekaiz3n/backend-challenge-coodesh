@@ -27,7 +27,3 @@ docker run -p 3001:3000 -e "MONGODB_URI=mongodb+srv://<username>:<password>@<you
 ```
 ### Local
 To run local, is necessary edit the file **config/mongoid.yml** and add the local database.
-
-
-### Heroku 
-This project is running in: https://mysterious-lowlands-15279.herokuapp.com/
